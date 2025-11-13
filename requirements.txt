@@ -1,0 +1,25 @@
+# Core dependencies for gypsum requirement calculation scripts
+# Python >= 3.7 required
+
+# Numerical computing
+numpy>=1.19.0
+
+# Geospatial raster processing
+rasterio>=1.2.0
+
+# Scientific computing and statistics
+scipy>=1.5.0
+
+# Plotting and visualization
+matplotlib>=3.3.0
+
+# Data manipulation and export
+pandas>=1.1.0
+
+# Optional but recommended for better performance
+# numba>=0.51.0  # JIT compilation for faster array operations
+
+# Optional for additional geospatial operations
+# gdal>=3.0.0  # GDAL bindings (can be tricky to install)
+# geopandas>=0.9.0  # Vector data support
+# shapely>=1.7.0  # Geometric operations

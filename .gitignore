@@ -1,0 +1,61 @@
+# Markdown files (exclude all except README.md and DESCRIPTION.md)
+*.md
+!README.md
+!DESCRIPTION.md
+
+# Data directories and files
+data/
+../ESP_CEC_tiffs/
+*.tif
+*.tiff
+
+# Output directories
+output_dir/
+results/
+correlation_output/
+correlation/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.pdf
+*.tex
