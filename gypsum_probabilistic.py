@@ -9,7 +9,8 @@ Two methods are provided:
 2. Monte Carlo Sampling - exact, but computationally intensive
 
 Based on: GR_i = k × CEC_i × (ESP_i - ESP_ref)
-where k = 0.0086 * F * Ds * ρb
+where k = 0.086 * F * Ds * ρb
+Note: 0.086 is for CEC in cmol_c/kg (0.0086 would be for mmol_c/kg)
 """
 
 import numpy as np
@@ -43,7 +44,7 @@ def calculate_gypsum_probabilistic(
         ESP variance values (%)²
         
     cec_mean : numpy.ndarray
-        Mean CEC values (cmol_c/kg or meq/100g)
+        Mean CEC values (cmol_c/kg)
 
     cec_variance : numpy.ndarray
         CEC variance values (cmol_c/kg)²
@@ -85,8 +86,9 @@ def calculate_gypsum_probabilistic(
     Monte Carlo method samples from the joint distribution (slower but exact).
     """
     
-    # Calculate combined constant k = 0.0086 * F * Ds * ρb
-    k = 0.0086 * efficiency_factor * soil_depth * bulk_density
+    # Calculate combined constant k = 0.086 * F * Ds * ρb
+    # Note: 0.086 is calibrated for CEC in cmol_c/kg
+    k = 0.086 * efficiency_factor * soil_depth * bulk_density
     
     # ESP difference from reference
     esp_diff = esp_mean - esp_final
@@ -313,7 +315,7 @@ def calculate_gypsum_from_geotiff_probabilistic(
         Path to ESP uncertainty (std dev) GeoTIFF (%)
 
     cec_tif : str or Path
-        Path to CEC mean values GeoTIFF (cmol_c/kg or meq/100g)
+        Path to CEC mean values GeoTIFF (cmol_c/kg)
 
     cec_uncertainty_tif : str or Path
         Path to CEC uncertainty (std dev) GeoTIFF (cmol_c/kg)
@@ -411,7 +413,7 @@ def calculate_gypsum_from_geotiff_probabilistic(
     # Calculate gypsum requirement
     print(f"\nCalculating gypsum requirement...")
     print(f"  ESP_final = {esp_final}%")
-    print(f"  k = 0.0086 × {efficiency_factor} × {soil_depth} × {bulk_density} = {0.0086*efficiency_factor*soil_depth*bulk_density:.6f}")
+    print(f"  k = 0.086 × {efficiency_factor} × {soil_depth} × {bulk_density} = {0.086*efficiency_factor*soil_depth*bulk_density:.6f}")
     
     gr_mean, gr_variance, gr_std = calculate_gypsum_probabilistic(
         esp_mean.flatten(),

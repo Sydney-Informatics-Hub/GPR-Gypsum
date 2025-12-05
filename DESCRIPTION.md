@@ -58,7 +58,7 @@ The gypsum requirement is calculated as:
 $$\text{GR} = k \cdot \text{CEC} \cdot (\text{ESP} - \text{ESP}_{\text{ref}})$$
 
 where:
-- $k = 0.0086 \times F \times D_s \times \rho_b$ (combined constant)
+- $k = 0.086 \times F \times D_s \times \rho_b$ (combined constant, for CEC in cmol_c/kg)
 - $F$ = exchange efficiency factor (e.g., 1.2)
 - $D_s$ = soil depth in meters (e.g., 0.15 m)
 - $\rho_b$ = bulk density in Mg/m³ (e.g., 1.2)

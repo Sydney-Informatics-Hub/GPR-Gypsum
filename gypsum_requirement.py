@@ -2,7 +2,8 @@
 Gypsum Requirement Calculation with Uncertainty Propagation
 Based on equation 8.2 from Agricultural Management of Sodic Soils (Oster et al.)
 
-GR = 0.0086 * F * Ds * ρb * CEC * (ESPi - ESPf)
+GR = 0.086 * F * Ds * ρb * CEC * (ESPi - ESPf)
+Note: 0.086 is for CEC in cmol_c/kg (0.0086 would be for mmol_c/kg)
 """
 
 import numpy as np
@@ -32,7 +33,7 @@ def calculate_gypsum_requirement(
         Shape: same as esp_initial
         
     cec : numpy.ndarray
-        Array of cation exchange capacity measurements (cmol_c/kg or meq/100g)
+        Array of cation exchange capacity measurements (cmol_c/kg)
         Shape: same as esp_initial
 
     cec_uncertainty : numpy.ndarray
@@ -73,7 +74,7 @@ def calculate_gypsum_requirement(
     -----
     - Uncertainty propagation assumes ESP and CEC are independent variables
     - Uses standard error propagation formula
-    - Conversion factor 0.0086 converts units to Mg/ha
+    - Conversion factor 0.086 converts units to Mg/ha (for CEC in cmol_c/kg)
     
     Examples
     --------
@@ -89,8 +90,8 @@ def calculate_gypsum_requirement(
             cec.shape == cec_uncertainty.shape):
         raise ValueError("All input arrays must have the same shape")
     
-    # Conversion factor from equation
-    conversion_factor = 0.0086
+    # Conversion factor from equation (for CEC in cmol_c/kg)
+    conversion_factor = 0.086
     
     # Calculate ESP difference
     esp_diff = esp_initial - esp_final
@@ -99,7 +100,7 @@ def calculate_gypsum_requirement(
     no_gypsum_needed = esp_initial <= esp_final
     
     # Calculate gypsum requirement
-    # GR = 0.0086 * F * Ds * ρb * CEC * (ESPi - ESPf)
+    # GR = 0.086 * F * Ds * ρb * CEC * (ESPi - ESPf)
     gypsum_requirement = (conversion_factor * 
                           efficiency_factor * 
                           soil_depth * 
@@ -111,11 +112,11 @@ def calculate_gypsum_requirement(
     gypsum_requirement = np.where(no_gypsum_needed, 0.0, gypsum_requirement)
     
     # Uncertainty propagation
-    # For GR = k * CEC * (ESPi - ESPf), where k = 0.0086 * F * Ds * ρb
+    # For GR = k * CEC * (ESPi - ESPf), where k = 0.086 * F * Ds * ρb
     # δGR = sqrt[(∂GR/∂CEC * δCEC)² + (∂GR/∂ESPi * δESPi)²]
     # ∂GR/∂CEC = k * (ESPi - ESPf)
     # ∂GR/∂ESPi = k * CEC
-    
+
     k = conversion_factor * efficiency_factor * soil_depth * bulk_density
     
     # Partial derivatives

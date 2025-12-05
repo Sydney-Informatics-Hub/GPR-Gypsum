@@ -8,16 +8,18 @@ A suite of Python tools for calculating soil gypsum requirements through probabi
 
 These scripts implement the gypsum requirement equation from Oster et al. (Agricultural Management of Sodic Soils):
 
-**GR = 0.0086 × F × Ds × ρb × CEC × (ESP - ESP_ref)**
+**GR = 0.086 × F × Ds × ρb × CEC × (ESP - ESP_ref)**
 
 where:
 - GR = Gypsum requirement (Mg/ha)
 - F = Ca-Na exchange efficiency factor (default: 1.2)
 - Ds = Soil depth in meters (default: 0.15 m = 15 cm)
 - ρb = Bulk density (Mg/m³) (default: 1.2)
-- CEC = Cation exchange capacity (cmol_c/kg or meq/100g)
+- CEC = Cation exchange capacity (cmol_c/kg)
 - ESP = Exchangeable sodium percentage (%)
 - ESP_ref = Target ESP threshold (default: 5%)
+
+**Note**: The conversion factor 0.086 is calibrated for CEC in **cmol_c/kg**. If your CEC data is in mmol_c/kg, use 0.0086 instead.
 
 ---
 
